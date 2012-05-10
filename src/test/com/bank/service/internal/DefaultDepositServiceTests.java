@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package com.bank.service.internal;
-
+/*
 import com.bank.domain.InvalidDepositAmountException;
 import static com.bank.repository.internal.SimpleAccountRepository.Data.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -14,7 +14,7 @@ import com.bank.repository.AccountRepository;
 import com.bank.repository.internal.SimpleAccountRepository;
 import com.bank.service.DepositService;
 import com.bank.service.FeePolicy;
-
+*/
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ import org.junit.Test;
  * @author TwinP
  */
 public class DefaultDepositServiceTests {
-
+    /*
     private AccountRepository accountRepository;
     private DepositService depositService;
 
@@ -60,4 +60,5 @@ public class DefaultDepositServiceTests {
         }
         assertThat(accountRepository.findById(A123_ID).getBalance(), equalTo(A123_INITIAL_BAL));
     }
+    */
 }

@@ -15,18 +15,19 @@
  */
 package com.bank.config.xml;
 
+import org.junit.Test;
+/*
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Test;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import com.bank.domain.InsufficientFundsException;
 import com.bank.repository.AccountRepository;
 import com.bank.service.TransferService;
-
+*/
 public class IntegrationTests {
-
+    /*
     @Test
     public void transferTenDollars() throws InsufficientFundsException {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
@@ -45,4 +46,5 @@ public class IntegrationTests {
         assertThat(accountRepository.findById("A123").getBalance(), equalTo(90.00));
         assertThat(accountRepository.findById("C456").getBalance(), equalTo(10.00));
     }
+    */
 }
