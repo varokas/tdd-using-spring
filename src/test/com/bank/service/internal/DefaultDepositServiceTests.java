@@ -38,7 +38,7 @@ public class DefaultDepositServiceTests {
     }
 
     @Test
-    public void testDeposit() {
+    public void testDepositAddsAmountToInitialBalance() {
         double depositAmount = 100.00;
         depositService.setMinimumDepositAmount(5.00);
         try {
@@ -49,7 +49,7 @@ public class DefaultDepositServiceTests {
     }
 
     @Test
-    public void testDepositBelowMinimumAmount() throws InvalidDepositAmountException {
+    public void testDepositBelowMinimumAmountThrowsExceptionAndLeaveCurrentBalance() throws InvalidDepositAmountException {
         double depositAmount = 4.99;
         depositService.setMinimumDepositAmount(5.00);
         try {

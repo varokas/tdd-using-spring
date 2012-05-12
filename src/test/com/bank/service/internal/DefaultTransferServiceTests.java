@@ -35,21 +35,28 @@ public class DefaultTransferServiceTests {
     }
 
     @Test
-    public void testTransfer() throws InsufficientFundsException {
+    public void testTransferMoveMoneyFromOneAccountToAnother() throws InsufficientFundsException {
         double transferAmount = 100.00;
 
-        TransferReceipt receipt = transferService.transfer(transferAmount, A123_ID, C456_ID);
-
-        assertThat(receipt.getTransferAmount(), equalTo(transferAmount));
-        assertThat(receipt.getFinalSourceAccount().getBalance(), equalTo(A123_INITIAL_BAL - transferAmount));
-        assertThat(receipt.getFinalDestinationAccount().getBalance(), equalTo(C456_INITIAL_BAL + transferAmount));
+        transferService.transfer(transferAmount, A123_ID, C456_ID);
 
         assertThat(accountRepository.findById(A123_ID).getBalance(), equalTo(A123_INITIAL_BAL - transferAmount));
         assertThat(accountRepository.findById(C456_ID).getBalance(), equalTo(C456_INITIAL_BAL + transferAmount));
     }
+    
+    @Test 
+    public void testTransferProduceCorrectReciept() throws InsufficientFundsException {
+    	double transferAmount = 100.00;
+    	
+    	TransferReceipt receipt = transferService.transfer(transferAmount, A123_ID, C456_ID);
+    	
+    	assertThat(receipt.getTransferAmount(), equalTo(transferAmount));
+        assertThat(receipt.getFinalSourceAccount().getBalance(), equalTo(A123_INITIAL_BAL - transferAmount));
+        assertThat(receipt.getFinalDestinationAccount().getBalance(), equalTo(C456_INITIAL_BAL + transferAmount));
+    }
 
     @Test
-    public void testInsufficientFunds() {
+    public void testTransferInsufficientFundsThrowsException() {
         double overage = 9.00;
         double transferAmount = A123_INITIAL_BAL + overage;
 
@@ -60,7 +67,18 @@ public class DefaultTransferServiceTests {
             assertThat(ex.getTargetAccountId(), equalTo(A123_ID));
             assertThat(ex.getOverage(), equalTo(overage));
         }
+    }
+        
+    @Test
+    public void testTransferInsufficientFundsLeaveAmountOnBothAccountUnchanged() {
+        double overage = 9.00;
+        double transferAmount = A123_INITIAL_BAL + overage;
 
+        try {
+            transferService.transfer(transferAmount, A123_ID, C456_ID);
+        } catch (InsufficientFundsException ex) {
+        }
+        
         assertThat(accountRepository.findById(A123_ID).getBalance(), equalTo(A123_INITIAL_BAL));
         assertThat(accountRepository.findById(C456_ID).getBalance(), equalTo(C456_INITIAL_BAL));
     }
